@@ -25,7 +25,7 @@
     border: 1px solid var(--ext-border-color);
 }
 
-.vditor-toolbar {
+.vditor-toolbar, .vditor-toolbar--hide:hover {
     background-color: var(--bg-color);
 }
 
