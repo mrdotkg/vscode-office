@@ -443,7 +443,7 @@
   margin: 3px 0 0 3px;
 }
 .vditor-toolbar {
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
