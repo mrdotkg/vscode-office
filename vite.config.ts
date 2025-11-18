@@ -1,11 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const fromScripts = process.argv.join(',').includes('mode');
-if (fromScripts) {
-  require('./build')
-}
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],

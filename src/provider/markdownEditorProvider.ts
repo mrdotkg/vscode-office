@@ -122,7 +122,7 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
             vscode.commands.executeCommand('workbench.action.files.save');
         }).on("export", (option) => {
             vscode.commands.executeCommand('workbench.action.files.save');
-            new MarkdownService(this.context).exportMarkdown(uri, option)
+            vscode.window.showInformationMessage('Export functionality has been removed. Please use VSCode built-in export or external tools.')
         }).on("theme", async (theme) => {
             if (!theme) {
                 const themes = [
@@ -154,9 +154,7 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
             readFileSync(`${this.extensionPath}/resource/vditor/index.html`, 'utf8')
                 .replace("{{rootPath}}", rootPath)
                 .replace("{{baseUrl}}", baseUrl)
-                .replace(`{{configs}}`, JSON.stringify({
-                    platform: platform()
-                })),
+                .replace(`{{configs}}`, JSON.stringify({})),
             webview, contextPath);
     }
 

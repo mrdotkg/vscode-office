@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as fs from 'fs';
 import * as vscode from 'vscode';
 
@@ -26,10 +25,6 @@ export class ReactApp {
     }
 
     private static async readContent(): Promise<string> {
-        if (this.IS_DEV) {
-            const data: string = (await axios.get(`http://127.0.0.1:5739/index.html`, { transformResponse: [] })).data;
-            return data.replace('/@vite/client', 'http://127.0.0.1:5739/@vite/client')
-        }
         const targetPath = `${this.webviewPath}/index.html`;
         return fs.readFileSync(targetPath, 'utf8')
     }
