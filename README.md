@@ -1,26 +1,40 @@
-# Officew Viewer
+# Markdown Editor
 
 ## Introduction
 
-English | [简体中文](README-CN.md) | [繁體中文](README-TW.md)
+A lightweight VS Code extension for instant Markdown editing and rendering using Vditor.
 
-This extension supports previewing these common office file formats in VS Code.
+**Supported file formats:**
+- Markdown: `.md`
 
-- Excel: .xls, .xlsx, .csv
-- Word: .docx
-- Svg: .svg
-- Pdf: .pdf
-- Font: .ttf, .otf, .woff, .woff2
-- Markdown: .md
-- HttpRequest: .http
-- Windows Reg: .reg
-- Compressed file: .zip, .jar, .vsix, .rar
+## Features
 
-## Markdown
+- **Instant Rendering**: Real-time preview as you type
+- **WYSIWYG Editor**: Visual editing with Vditor
+- **Markdown Support**: Full CommonMark and GFM support
+- **Code Highlighting**: Syntax highlighting with highlight.js
+- **Math Support**: KaTeX for mathematical expressions
+- **Mermaid Diagrams**: Support for Mermaid diagram syntax
+- **Outline View**: Navigate document structure
+- **Theme Support**: Multiple editor themes
 
-This extension changes the default markdown editor to the vditor. **Please note that this editor is no longer actively maintained.**
+## Keyboard Shortcuts
 
-If you want to use the original vscode editor, insert this in your `settings.json`.
+Based on [Vditor shortcuts](shortcut.md):
+
+- **Move list up**: `Ctrl+Alt+I` / `⌘+^+I`
+- **Move list down**: `Ctrl+Alt+J` / `⌘+^+J`
+- **Edit in VS Code**: `Ctrl+Alt+E` / `⌘+^+E`
+
+## Tips
+
+- Resize editor via `Ctrl/Cmd + Mouse Scroll`
+- Open hyperlinks with `Ctrl/Cmd + Click` or double-click
+- Paste images directly into the editor
+
+## Configuration
+
+To use the default VS Code markdown editor instead:
 
 ```json
 {
@@ -31,34 +45,9 @@ If you want to use the original vscode editor, insert this in your `settings.jso
 }
 ```
 
-Shortcuts: Base on [Vditor shortcuts](shortcut.md) and more:
-
-- Move list up: `Ctrl Alt I` / `⌘ ^ I`
-- Move list down: `Ctrl Alt J` / `⌘ ^ J`
-- Edit in VS Code: `Ctrl Alt E` / `⌘ ^ E`
-
-Tips:
-
-- Resize editor via ctrl/cmd+mouse scroll.
-- Hyperlinks can be opened by ctrl/meta+click or double-click.
-
-## HTML
-
-The html editor supports live viewing.   Press ctrl+shift+v to open the live view.
-
-## Sponsor
-
-[![Database Client](https://database-client.com/text_logo.png)](https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-database-client2)
-
-Database Client for Visual Studio Code, supporting the management **MySQL/MariaDB, PostgreSQL, SQLite, Redis** and  **ElasticSearch**, and works as an **SSH** client, boost your maximum productivity! [Get it now](https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-database-client2).
-
 ## Credits
 
-- PDF rendering: [mozilla/pdf.js/](https://github.com/mozilla/pdf.js/)
-- Docx rendering: [VolodymyrBaydalka/docxjs](https://github.com/VolodymyrBaydalka/docxjs)
-- XLSX rendering:
-  - [SheetJS/sheetjs](https://github.com/SheetJS/sheetjs): XLSX parsing
-  - [myliang/x-spreadsheet](https://github.com/myliang/x-spreadsheet): XLSX rendering
-- HTTP: [Rest  Client](https://github.com/Huachao/vscode-restclient)
-- Markdown: [Vanessa219/vditor](https://github.com/Vanessa219/vditor)
-- Material Icon theme: [PKief/vscode-material-icon-theme](https://github.com/PKief/vscode-material-icon-theme)
+- **Markdown Editor**: [Vanessa219/vditor](https://github.com/Vanessa219/vditor)
+- **Syntax Highlighting**: [highlight.js](https://highlightjs.org/)
+- **Math Rendering**: [KaTeX](https://katex.org/)
+- **Diagrams**: [Mermaid](https://mermaid.js.org/)

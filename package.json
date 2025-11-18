@@ -194,8 +194,8 @@
 	"scripts": {
 		"dev": "vite --mode=development",
 		"lint:fix": "eslint src/**/*.ts --fix",
-		"build": "rmdir /s /q out && node build.ts --mode=production && vite build --mode=production",
-		"build11": "Remove-Item -Recurse -Force out; node build.ts --mode=production; vite build --mode=production",
+		"build": "rmdir /s /q out && node build.ts --mode=production",
+		"build11": "Remove-Item -Recurse -Force out; node build.ts --mode=production",
 		"package": "vsce package --no-dependencies",
 		"publish": "vsce publish --no-dependencies",
 		"vscode:prepublish": "npm run build"
