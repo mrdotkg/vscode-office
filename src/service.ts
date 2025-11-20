@@ -4,8 +4,11 @@ import { fileTypeFromFile } from 'file-type';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, renameSync } from 'fs';
 import path, { dirname, extname, isAbsolute, parse } from 'path';
 import * as vscode from 'vscode';
-import { Holder } from './markdown/holder';
+import { Holder } from './common/holder';
 
+/**
+ * Custom Markdown services to be used by provider.
+ */
 export class MarkdownService {
 
     constructor(private context: vscode.ExtensionContext) {
@@ -90,7 +93,7 @@ export class MarkdownService {
         const platform = process.platform;
         if (platform === 'win32') {
             // Windows
-            const scriptPath = path.join(this.context.extensionPath, '/resource/lib/pc.ps1');
+            const scriptPath = path.join(this.context.extensionPath, '/assets/lib/pc.ps1');
             const powershell = spawn('powershell', [
                 '-noprofile',
                 '-noninteractive',
@@ -108,7 +111,7 @@ export class MarkdownService {
             });
         } else if (platform === 'darwin') {
             // Mac
-            const scriptPath = path.join(this.context.extensionPath, './resource/lib/mac.applescript');
+            const scriptPath = path.join(this.context.extensionPath, './assets/lib/mac.applescript');
             const ascript = spawn('osascript', [scriptPath, imagePath]);
             ascript.on('exit', function (code, signal) {
             });
@@ -117,7 +120,7 @@ export class MarkdownService {
             });
         } else {
             // Linux 
-            const scriptPath = path.join(this.context.extensionPath, './resource/lib/linux.sh');
+            const scriptPath = path.join(this.context.extensionPath, './assets/lib/linux.sh');
 
             const ascript = spawn('sh', [scriptPath, imagePath]);
             ascript.on('exit', function (code, signal) {

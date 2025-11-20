@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync } from 'fs';
 import { dirname, parse } from 'path';
-import * as vscode from 'vscode';
+import {workspace, Uri, ExtensionContext} from 'vscode';
 import { Global } from './global';
 
 export function writeFile(path: string, buffer: Buffer) {
@@ -8,10 +8,10 @@ export function writeFile(path: string, buffer: Buffer) {
     if (!existsSync(dir)) {
         mkdirSync(dir, { recursive: true })
     }
-    vscode.workspace.fs.writeFile(vscode.Uri.file(path), buffer);
+    workspace.fs.writeFile(Uri.file(path), buffer);
 }
 
-export function adjustImgPath(uri: vscode.Uri, withworkspace: boolean = false) {
+export function adjustImgPath(uri: Uri, withworkspace: boolean = false) {
     const imgPath = Global.getConfig<string>("pasterImgPath")
         .replace("${fileName}", parse(uri.fsPath).name.replace(/\s/g, ''))
         .replace("${now}", new Date().getTime() + "")
@@ -27,8 +27,8 @@ export function adjustImgPath(uri: vscode.Uri, withworkspace: boolean = false) {
  * @param uri 
  * @returns 
  */
-export function getWorkspacePath(uri: vscode.Uri): string {
-    const folders = vscode.workspace.workspaceFolders;
+export function getWorkspacePath(uri: Uri): string {
+    const folders = workspace.workspaceFolders;
     if (!folders || folders.length == 0) return '';
     const workspacePath = folders[0]?.uri?.fsPath;
     if (folders.length > 1) {
@@ -42,8 +42,8 @@ export function getWorkspacePath(uri: vscode.Uri): string {
 }
 
 export class FileUtil {
-    private static context: vscode.ExtensionContext;
-    public static init(context: vscode.ExtensionContext) {
+    private static context: ExtensionContext;
+    public static init(context: ExtensionContext) {
         this.context = context;
     }
     public static getLastPath(key: string | string[], path = '') {
@@ -55,10 +55,10 @@ export class FileUtil {
             if (basePath) break;
         }
         if (basePath && !existsSync(basePath)) {
-            basePath = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? ''
+            basePath = workspace.workspaceFolders?.[0]?.uri.fsPath ?? ''
         } else {
             basePath = '';
         }
-        return vscode.Uri.file(basePath + path)
+        return Uri.file(basePath + path)
     }
 }

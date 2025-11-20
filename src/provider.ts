@@ -2,15 +2,14 @@ import { adjustImgPath, getWorkspacePath, writeFile } from '@/common/fileUtil';
 import { readFileSync, writeFileSync } from 'fs';
 import { basename, isAbsolute, parse, resolve } from 'path';
 import * as vscode from 'vscode';
-import { Handler } from '../common/handler';
-import { Util } from '../common/util';
-import { Holder } from '../service/markdown/holder';
-import { MarkdownService } from '../service/markdownService';
+import { Handler } from './common/handler';
+import { Util } from './common/util';
+import { Holder } from './common/holder';
+import { MarkdownService } from './service';
 import { Global } from '@/common/global';
-import { platform } from 'os';
 
 /**
- * support view and edit office files.
+ * support view and edit Markdown features in VS Code Ui.
  */
 export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
 

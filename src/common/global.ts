@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { workspace } from 'vscode';
 
 const prefix='MDIR';
 export class Global {
@@ -7,7 +7,7 @@ export class Global {
      * @param key config key
      */
     public static getConfig<T>(key: string, defaultValue?: T): T {
-        const config = vscode.workspace.getConfiguration(prefix);
+        const config = workspace.getConfiguration(prefix);
         return config.get<T>(key, defaultValue);
     }
     /**
@@ -16,7 +16,7 @@ export class Global {
      * @param value config value
      */
     public static async updateConfig(name: string, value: any) {
-        const config = vscode.workspace.getConfiguration(prefix);
+        const config = workspace.getConfiguration(prefix);
         const meta = config.inspect(name)
         const newValue = meta?.defaultValue == value ? undefined : value;
         await config.update(name, newValue, true)

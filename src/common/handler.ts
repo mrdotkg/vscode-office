@@ -1,7 +1,6 @@
+import { WebviewPanel, Uri, window, workspace } from "vscode";
 import { EventEmitter } from "events";
-import * as vscode from 'vscode';
-import { WebviewPanel } from "vscode";
-import { Output } from "./Output";
+import { Output } from "./output";
 
 export class Handler {
 
@@ -19,7 +18,7 @@ export class Handler {
                 await callback(content)
             } catch (error) {
                 Output.debug(error)
-                vscode.window.showErrorMessage(error.message)
+                window.showErrorMessage(error.message)
             }
         })
         return this;
@@ -30,15 +29,15 @@ export class Handler {
         return this;
     }
 
-    public static bind(panel: WebviewPanel, uri: vscode.Uri): Handler {
+    public static bind(panel: WebviewPanel, uri: Uri): Handler {
         const eventEmitter = new EventEmitter();
 
-        const fileWatcher = vscode.workspace.createFileSystemWatcher(uri.fsPath)
+        const fileWatcher = workspace.createFileSystemWatcher(uri.fsPath)
         fileWatcher.onDidChange(e => {
             eventEmitter.emit("fileChange", e)
         })
 
-        const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
+        const changeDocumentSubscription = workspace.onDidChangeTextDocument(e => {
             if (e.document.uri.toString() === uri.toString() && e.contentChanges.length > 0) {
                 eventEmitter.emit("externalUpdate", e)
             }

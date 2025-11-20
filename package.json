@@ -4,7 +4,7 @@
 	"description": "Instant Markdown rendering and editing with WYSIWYG support.",
 	"version": "3.5.4",
 	"publisher": "butterops",
-	"icon": "resource/images/logo.png",
+	"icon": "assets/images/logo.png",
 	"engines": {
 		"vscode": "^1.64.0"
 	},
@@ -15,7 +15,7 @@
 		"rendering"
 	],
 	"categories": [
-		"Editors"
+		"Extension Packs"
 	],
 	"bugs": {
 		"url": "https://github.com/cweijan/vscode-office/issues",
@@ -36,8 +36,8 @@
 				"command": "office.markdown.switch",
 				"title": "Switch markdown editor",
 				"icon": {
-					"dark": "./resource/images/switch.svg",
-					"light": "./resource/images/switch_light.svg"
+					"dark": "./assets/images/switch.svg",
+					"light": "./assets/images/switch_light.svg"
 				}
 			},
 			{

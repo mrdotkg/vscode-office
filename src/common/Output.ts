@@ -1,5 +1,5 @@
 "user strict";
-import * as vscode from "vscode";
+import {window, OutputChannel} from "vscode";
 
 export class Output {
 
@@ -9,12 +9,12 @@ export class Output {
 
     public static log(value: any, showLog = true) {
         if (this.outputChannel == null) {
-            this.outputChannel = vscode.window.createOutputChannel("Office");
+            this.outputChannel = window.createOutputChannel("Office");
         }
         if (showLog) this.outputChannel.show(true);
         this.outputChannel.appendLine(`${value}`);
         this.outputChannel.appendLine("-----------------------------------------------------------------------------------------");
     }
 
-    private static outputChannel: vscode.OutputChannel;
+    private static outputChannel: OutputChannel;
 }
