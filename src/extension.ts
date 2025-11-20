@@ -1,15 +1,13 @@
 import * as vscode from 'vscode';
 import { MarkdownEditorProvider } from './provider/markdownEditorProvider';
 import { MarkdownService } from './service/markdownService';
-import { Output } from './common/Output';
-import { FileUtil } from './common/fileUtil';
-import { ReactApp } from './common/reactApp';
+
 
 export function activate(context: vscode.ExtensionContext) {
 	keepOriginDiff();
 	const viewOption = { webviewOptions: { retainContextWhenHidden: true, enableFindWidget: true } };
-	FileUtil.init(context)
-	ReactApp.init(context)
+	// FileUtil.init(context)
+	// ReactApp.init(context)
 	const markdownService = new MarkdownService(context);
 	const markdownEditorProvider = new MarkdownEditorProvider(context)
 	context.subscriptions.push(

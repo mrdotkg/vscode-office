@@ -52,7 +52,7 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
         const webview = handler.panel.webview;
 
         let content = document.getText();
-        const contextPath = `${this.extensionPath}/resource/vditor`;
+        const contextPath = `${this.extensionPath}/vditor`;
         const rootPath = webview.asWebviewUri(vscode.Uri.file(`${contextPath}`)).toString();
 
         Holder.activeDocument = document;
@@ -147,15 +147,39 @@ export class MarkdownEditorProvider implements vscode.CustomTextEditorProvider {
             vscode.commands.executeCommand('workbench.action.toggleDevTools')
         })
 
-        const basePath = Global.getConfig('workspacePathAsImageBasePath') ?
-            vscode.Uri.file(getWorkspacePath(folderPath)) : folderPath;
-        const baseUrl = webview.asWebviewUri(basePath).toString().replace(/\?.+$/, '').replace('https://git', 'https://file');
+        // Decide what the base path should be for resources
+        // If the config 'workspacePathAsImageBasePath' is enabled, use the workspace folder path as a file URI
+        // Otherwise, just use the folderPath directly
+        const basePath = Global.getConfig('workspacePathAsImageBasePath')
+            ? vscode.Uri.file(getWorkspacePath(folderPath))   // Convert workspace folder path into a VS Code file URI
+            : folderPath;                                     // Fallback: use the raw folder path
+
+        // Convert the basePath into a Webview-safe URI
+        // - asWebviewUri() transforms local paths into special URIs that Webviews can load
+        // - toString() makes it a string
+        // - replace(/\?.+$/, '') removes any query string (e.g., ?v=123) from the URI
+        // - replace('https://git', 'https://file') rewrites scheme prefix for compatibility
+        const baseUrl = webview.asWebviewUri(basePath)
+            .toString()
+            .replace(/\?.+$/, '')        // strip query parameters
+            .replace('https://git', 'https://file'); // adjust scheme for file access
+
+        // Read the HTML template file for the Webview (index.html inside vditor)
+        // Then replace placeholders with actual values:
+        // - {{rootPath}} → rootPath variable
+        // - {{baseUrl}} → the computed baseUrl above
+        // - {{configs}} → an empty JSON object here
+        // Finally, pass the processed HTML through Util.buildPath()
+        // which rewrites src/href attributes so resources load correctly in the Webview
         webview.html = Util.buildPath(
-            readFileSync(`${this.extensionPath}/resource/vditor/index.html`, 'utf8')
-                .replace("{{rootPath}}", rootPath)
-                .replace("{{baseUrl}}", baseUrl)
-                .replace(`{{configs}}`, JSON.stringify({})),
-            webview, contextPath);
+            readFileSync(`${this.extensionPath}/vditor/index.html`, 'utf8')
+                .replace("{{rootPath}}", rootPath)                 // inject rootPath
+                .replace("{{baseUrl}}", baseUrl)                   // inject baseUrl
+                .replace(`{{configs}}`, JSON.stringify({})),       // inject configs (empty object)
+            webview,                                               // Webview instance
+            contextPath                                            // context path for resource resolution
+        );
+
     }
 
     private updateCount(content: string) {

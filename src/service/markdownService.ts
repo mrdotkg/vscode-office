@@ -90,7 +90,7 @@ export class MarkdownService {
         const platform = process.platform;
         if (platform === 'win32') {
             // Windows
-            const scriptPath = path.join(this.context.extensionPath, '/lib/pc.ps1');
+            const scriptPath = path.join(this.context.extensionPath, '/resource/lib/pc.ps1');
             const powershell = spawn('powershell', [
                 '-noprofile',
                 '-noninteractive',
@@ -108,7 +108,7 @@ export class MarkdownService {
             });
         } else if (platform === 'darwin') {
             // Mac
-            const scriptPath = path.join(this.context.extensionPath, './lib/mac.applescript');
+            const scriptPath = path.join(this.context.extensionPath, './resource/lib/mac.applescript');
             const ascript = spawn('osascript', [scriptPath, imagePath]);
             ascript.on('exit', function (code, signal) {
             });
@@ -117,7 +117,7 @@ export class MarkdownService {
             });
         } else {
             // Linux 
-            const scriptPath = path.join(this.context.extensionPath, './lib/linux.sh');
+            const scriptPath = path.join(this.context.extensionPath, './resource/lib/linux.sh');
 
             const ascript = spawn('sh', [scriptPath, imagePath]);
             ascript.on('exit', function (code, signal) {
