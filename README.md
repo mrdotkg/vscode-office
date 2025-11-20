@@ -6,7 +6,7 @@ A lightweight VS Code extension for instant Markdown editing and rendering using
 
 **Supported file formats:**
 
-- Markdown: `.md`
+- Markdown:  `.md`
 
 ## Features
 
